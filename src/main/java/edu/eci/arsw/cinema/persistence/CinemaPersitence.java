@@ -66,7 +66,11 @@ public interface CinemaPersitence {
 
 	public Set<Cinema> getAllCinemas() throws CinemaPersistenceException;
 
-	List<CinemaFunction> getFunctionsbyCinemaAndDateAndHour(String cinema, String date,String name);
+	CinemaFunction getFunctionsbyCinemaAndDateAndHour(String cinema, String date,String name);
+
+	public void addfuntion(String name, CinemaFunction funtion);
+
+	public void UpdateFuntion(String name, CinemaFunction funtion) throws CinemaException;
 
 	
 

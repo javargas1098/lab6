@@ -8,6 +8,7 @@ package edu.eci.arsw.cinema.services;
 import edu.eci.arsw.cinema.filter.CinemaFilter;
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
+import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
@@ -72,9 +73,17 @@ public class CinemaServices {
 		return cfs.getFunctionsbySeats(cinName, sillas, date, cps);
 	}
 
-	public Object getFunctionsbyCinemaAndDateAndHour(String name, String date, String moviename) throws CinemaPersistenceException {
+	public CinemaFunction getFunctionsbyCinemaAndDateAndHour(String name, String date, String moviename) throws CinemaPersistenceException {
 		// TODO Auto-generated method stub
 		return cps.getFunctionsbyCinemaAndDateAndHour(name, date,  moviename);
 	}
 
+	public void addfuntion(String name, CinemaFunction funtion) throws CinemaPersistenceException{
+		// TODO Auto-generated method stub
+		cps.addfuntion(name,funtion);
+	}
+	public void UpdateFuntion(String name, CinemaFunction funtion) throws  CinemaException{
+		// TODO Auto-generated method stub
+		cps.UpdateFuntion(name,funtion);
+	}
 }

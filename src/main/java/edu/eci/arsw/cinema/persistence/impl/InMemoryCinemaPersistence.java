@@ -40,11 +40,11 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 		functions.add(funct2);
 		Cinema c = new Cinema("cinemaX", functions);
 		cinemas.put("cinemaX", c);
-		
+
 		String functionDate2 = "2018-12-18 15:30";
 		List<CinemaFunction> functions2 = new ArrayList<>();
-		CinemaFunction funct3 = new CinemaFunction(new Movie("SuperHeroes Movie", "Action"), functionDate2);
-		CinemaFunction funct4 = new CinemaFunction(new Movie("The Night", "Horror"), functionDate2);
+		CinemaFunction funct3 = new CinemaFunction(new Movie("SuperHeroes Movie 2", "Action"), functionDate2);
+		CinemaFunction funct4 = new CinemaFunction(new Movie("The Night 2", "Horror"), functionDate2);
 		functions2.add(funct3);
 		functions2.add(funct4);
 		Cinema c1 = new Cinema("cinemaY", functions2);
@@ -81,17 +81,19 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 		return fun;
 
 	}
+
 	@Override
-	public List<CinemaFunction> getFunctionsbyCinemaAndDateAndHour(String cinema, String date,String nombre) {
+	public CinemaFunction getFunctionsbyCinemaAndDateAndHour(String cinema, String date, String nombre) {
 		Cinema cine = cinemas.get(cinema);
-		List<CinemaFunction> fun = new ArrayList<>();
+
 		for (CinemaFunction funtion : cine.getFunctions()) {
-			if (funtion.getDate().equals(date.split(" ")[0]) && funtion.getHour().equals(date.split(" ")[1]) && funtion.getMovie().getName().equals(nombre)) {
-				fun.add(funtion);
+			if (funtion.getDate().equals(date.split(" ")[0]) && funtion.getHour().equals(date.split(" ")[1])
+					&& funtion.getMovie().getName().equals(nombre)) {
+				return funtion;
 
 			}
 		}
-		return fun;
+		return null;
 
 	}
 
@@ -119,6 +121,28 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 		return allCinemas;
 	}
 
+	@Override
+	public void addfuntion(String name, CinemaFunction funtion) {
+		// TODO Auto-generated method stub
+		Cinema cine = cinemas.get(name);
+		cine.Addfuntion(funtion);
 
+	}
+
+	@Override
+	public void UpdateFuntion(String name, CinemaFunction funtion) throws CinemaException {
+		// TODO Auto-generated method stub
+		Cinema cine = cinemas.get(name);
+		if (!cine.Updatefuntion(funtion)) {
+			System.out.println(" ");
+			System.out.println(" ");
+			System.out.println(" ");
+			System.out.println(" ");
+			System.out.println(" ");
+			throw new CinemaException("No se puede actualizar");
+
+		}
+
+	}
 
 }

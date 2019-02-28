@@ -31,13 +31,13 @@ public class CinemaFunction {
 		this.movie = movie;
 		this.date = date.split(" ")[0];
 		this.hour = date.split(" ")[1];
-		
-		numSeats=7*12;
+
+		numSeats = 7 * 12;
 		for (int i = 0; i < 7; i++) {
 			List<Boolean> row = new ArrayList<>(Arrays.asList(new Boolean[12]));
 			Collections.fill(row, Boolean.TRUE);
 			this.seats.add(row);
-			
+
 		}
 	}
 
@@ -52,8 +52,8 @@ public class CinemaFunction {
 	public void buyTicket(int row, int col) throws CinemaException {
 		if (seats.get(row).get(col).equals(true)) {
 			seats.get(row).set(col, Boolean.FALSE);
-			numSeats-=1;
-			
+			numSeats -= 1;
+
 		} else {
 			throw new CinemaException("Seat booked");
 		}
@@ -77,6 +77,14 @@ public class CinemaFunction {
 
 	public List<List<Boolean>> getSeats() {
 		return this.seats;
+	}
+
+	public void setFuntion(CinemaFunction funtion) {
+		this.seats = funtion.getSeats();
+		this.date = funtion.getDate();
+		this.hour = funtion.getHour();
+		this.numSeats = funtion.getNumSeats();
+
 	}
 
 	public Movie getMovie() {

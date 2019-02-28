@@ -30,6 +30,20 @@ public class Cinema {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public void Addfuntion(CinemaFunction funtion) {
+		functions.add(funtion);
+		
+	}
+	public boolean Updatefuntion(CinemaFunction funtion) {
+		for (CinemaFunction cinemaFunction : functions) {
+			if(cinemaFunction.getMovie().getName().equals(funtion.getMovie().getName())) {
+				cinemaFunction.setFuntion(funtion);
+				return true;
+			}
+		}
+		return false;
+		
+	}
 
 	public List<CinemaFunction> getFunctions() {
 		return this.functions;

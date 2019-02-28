@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -83,7 +85,7 @@ public class CinemaAPIController {
 	@GetMapping("{name}/{date}/{moviename}")
 
 	public ResponseEntity<?> getByNameAndDateAndName(@PathVariable String name, @PathVariable String date,
-			@PathVariable String hour, @PathVariable String moviename) throws ResourceNotFoundException {
+			@PathVariable String moviename) throws ResourceNotFoundException {
 		try {
 			// obtener datos que se enviarán a través del API
 			return new ResponseEntity<>(
@@ -96,12 +98,25 @@ public class CinemaAPIController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> manejadorPostRecursoXX(@PathVariable String name,@RequestBody Cinema cine) {
+	@PostMapping("{name}")
+	public ResponseEntity<?> Postbyfuntion(@PathVariable String name,@RequestBody CinemaFunction funtion) {
 		try {
+			cs.addfuntion(name,funtion);
 			// registrar dato
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (CinemaPersistenceException ex) {
+			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error bla bla bla", HttpStatus.FORBIDDEN);
+		}
+
+	}
+	@PutMapping("{name}")
+	public ResponseEntity<?> PostbyName(@PathVariable String name,@RequestBody CinemaFunction funtion) throws CinemaException {
+		try {
+			cs.UpdateFuntion(name,funtion);
+			// registrar dato
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (CinemaException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("Error bla bla bla", HttpStatus.FORBIDDEN);
 		}
