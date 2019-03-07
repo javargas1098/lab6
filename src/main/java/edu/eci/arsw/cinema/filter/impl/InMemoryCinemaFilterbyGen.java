@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import edu.eci.arsw.cinema.filter.CinemaFilter;
 import edu.eci.arsw.cinema.model.CinemaFunction;
+import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import edu.eci.arsw.cinema.persistence.FilterException;
@@ -15,7 +16,7 @@ import edu.eci.arsw.cinema.persistence.FilterException;
 public class InMemoryCinemaFilterbyGen implements CinemaFilter {
 
 	@Override
-	public List<CinemaFunction> getFunctionsbyGen(String cinema, String gen, String date,CinemaPersitence pelicula) throws CinemaPersistenceException {
+	public List<CinemaFunction> getFunctionsbyGen(String cinema, String gen, String date,CinemaPersitence pelicula) throws CinemaException {
 		List<CinemaFunction> cine = pelicula.getCinema(cinema).getFunctions();
 		List<CinemaFunction> fun = new ArrayList<>();
 		for (CinemaFunction cin : cine) {

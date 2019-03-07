@@ -32,8 +32,9 @@ public interface CinemaPersitence {
 	 * @throws CinemaException
 	 *             if the seat is occupied, or any other low-level persistence error
 	 *             occurs.
+	 * @throws CinemaPersistenceException 
 	 */
-	public boolean buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException;
+	public boolean buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException, CinemaPersistenceException;
 
 	/**
 	 * 
@@ -62,11 +63,11 @@ public interface CinemaPersitence {
 	 * @throws CinemaPersistenceException
 	 *             if there is no such cinema
 	 */
-	public Cinema getCinema(String name) throws CinemaPersistenceException;
+	public Cinema getCinema(String name) throws CinemaException;
 
 	public Set<Cinema> getAllCinemas() throws CinemaPersistenceException;
 
-	CinemaFunction getFunctionsbyCinemaAndDateAndHour(String cinema, String date,String name);
+	CinemaFunction getFunctionsbyCinemaAndDateAndHour(String cinema, String date,String name) throws CinemaException;
 
 	public void addfuntion(String name, CinemaFunction funtion);
 

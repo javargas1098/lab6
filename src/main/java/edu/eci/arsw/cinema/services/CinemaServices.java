@@ -34,6 +34,7 @@ public class CinemaServices {
 	public void addNewCinema(Cinema c) throws CinemaPersistenceException {
 		cps.saveCinema(c);
 	}
+	
 
 	public Set<Cinema> getAllCinemas() throws CinemaPersistenceException {
 		return cps.getAllCinemas();
@@ -47,11 +48,16 @@ public class CinemaServices {
 	 * @throws CinemaException
 	 */
 	public Cinema getCinemaByName(String name) throws CinemaException, CinemaPersistenceException {
-		return cps.getCinema(name);
+		try {
+			return cps.getCinema(name);
+		} catch (CinemaException  e) {
+			throw new CinemaPersistenceException("The given name does not exit");
+		}
 
 	}
 
-	public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException {
+
+	public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException,CinemaPersistenceException {
 		cps.buyTicket(row, col, cinema, date, movieName);
 
 	}
@@ -73,9 +79,13 @@ public class CinemaServices {
 		return cfs.getFunctionsbySeats(cinName, sillas, date, cps);
 	}
 
-	public CinemaFunction getFunctionsbyCinemaAndDateAndHour(String name, String date, String moviename) throws CinemaPersistenceException {
+	public CinemaFunction getFunctionsbyCinemaAndDateAndHour(String name, String date, String moviename) throws CinemaPersistenceException, CinemaException {
 		// TODO Auto-generated method stub
-		return cps.getFunctionsbyCinemaAndDateAndHour(name, date,  moviename);
+		
+		try {
+			return cps.getFunctionsbyCinemaAndDateAndHour(name, date,  moviename);
+		} catch (CinemaException e) {
+			throw new CinemaException("The given name does not exit");}
 	}
 
 	public void addfuntion(String name, CinemaFunction funtion) throws CinemaPersistenceException{

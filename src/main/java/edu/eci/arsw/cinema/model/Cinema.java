@@ -42,7 +42,7 @@ public class Cinema {
 	public boolean Updatefuntion(CinemaFunction funtion) {
 		for (CinemaFunction cinemaFunction : functions) {
 			if (cinemaFunction.getMovie().getName().equals(funtion.getMovie().getName())) {
-				cinemaFunction.setFuntion(funtion);
+				cinemaFunction.setFunction(funtion);
 				return true;
 			}
 		}

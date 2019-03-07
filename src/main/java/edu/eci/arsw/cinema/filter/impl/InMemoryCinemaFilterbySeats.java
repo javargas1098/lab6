@@ -24,7 +24,7 @@ public class InMemoryCinemaFilterbySeats implements CinemaFilter {
 	
 
 	@Override
-	public List<CinemaFunction> getFunctionsbySeats(String cinName, int seats, String date,CinemaPersitence pelicula) throws CinemaPersistenceException {
+	public List<CinemaFunction> getFunctionsbySeats(String cinName, int seats, String date,CinemaPersitence pelicula) throws  CinemaException {
 		// TODO Auto-generated method stub
 		List<CinemaFunction> cine = pelicula.getCinema(cinName).getFunctions();
 		List<CinemaFunction> fun = new ArrayList<>();

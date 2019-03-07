@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.cinema.controllers;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -54,16 +55,17 @@ public class CinemaAPIController {
 			return new ResponseEntity<>("Error bla bla bla", HttpStatus.NOT_FOUND);
 		}
 	}
-
 	@GetMapping("{name}")
-
-	public ResponseEntity<?> getByName(@PathVariable String name) throws ResourceNotFoundException {
+	public ResponseEntity<?> getByName(@PathVariable String name) throws CinemaPersistenceException, CinemaException {
 		try {
-			// obtener datos que se enviarán a través del API
-			return new ResponseEntity<>(cs.getCinemaByName(name), HttpStatus.ACCEPTED);
-		} catch (CinemaPersistenceException | CinemaException ex) {
+
+			Cinema c = cs.getCinemaByName(name);
+			ArrayList<CinemaFunction> data = (ArrayList<CinemaFunction>) c.getFunctions();
+			return new ResponseEntity<>(cs, HttpStatus.ACCEPTED);
+
+		} catch (CinemaPersistenceException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("Error bla bla bla", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("No se encontró el recurso solicitado", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -85,13 +87,13 @@ public class CinemaAPIController {
 	@GetMapping("{name}/{date}/{moviename}")
 
 	public ResponseEntity<?> getByNameAndDateAndName(@PathVariable String name, @PathVariable String date,
-			@PathVariable String moviename) throws ResourceNotFoundException {
+			@PathVariable String moviename) throws ResourceNotFoundException, CinemaException, CinemaPersistenceException {
 		try {
 			// obtener datos que se enviarán a través del API
 			return new ResponseEntity<>(
 					cs.getFunctionsbyCinemaAndDateAndHour(name, date, moviename.replace("%20", " ")),
 					HttpStatus.ACCEPTED);
-		} catch (CinemaPersistenceException ex) {
+		} catch (CinemaException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("Error HTTP 404", HttpStatus.NOT_FOUND);
 		}
@@ -106,7 +108,7 @@ public class CinemaAPIController {
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (CinemaPersistenceException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("Error bla bla bla", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("Error HTTP 404", HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -120,7 +122,7 @@ public class CinemaAPIController {
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (CinemaException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("Error bla bla bla", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("Error HTTP 404", HttpStatus.NOT_FOUND);
 		}
 
 	}

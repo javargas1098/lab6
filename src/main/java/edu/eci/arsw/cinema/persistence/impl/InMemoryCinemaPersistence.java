@@ -52,14 +52,19 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 	}
 
 	@Override
-	public boolean buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException {
+	public boolean buyTicket(int row, int col, String cinema, String date, String movieName)
+			throws CinemaException, CinemaPersistenceException {
 		Cinema cine = cinemas.get(cinema);
 		for (CinemaFunction funtion : cine.getFunctions()) {
 
 			if (funtion.getMovie().getName().equals(movieName) && funtion.getDate().equals(date)) {
 
-				funtion.buyTicket(row, col);
-				return true;
+				try {
+					funtion.buyTicket(row, col);
+					return true;
+				} catch (CinemaException e) {
+					throw new CinemaPersistenceException(e.getMessage());
+				}
 
 			}
 
@@ -83,32 +88,43 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 	}
 
 	@Override
-	public CinemaFunction getFunctionsbyCinemaAndDateAndHour(String cinema, String date, String nombre) {
+	public CinemaFunction getFunctionsbyCinemaAndDateAndHour(String cinema, String date, String nombre) throws CinemaException {
 		Cinema cine = cinemas.get(cinema);
+		if (cine != null) {
+			for (CinemaFunction funtion : cine.getFunctions()) {
+				if (funtion.getDate().equals(date.split(" ")[0]) && funtion.getHour().equals(date.split(" ")[1])
+						&& funtion.getMovie().getName().equals(nombre)) {
+					return funtion;
 
-		for (CinemaFunction funtion : cine.getFunctions()) {
-			if (funtion.getDate().equals(date.split(" ")[0]) && funtion.getHour().equals(date.split(" ")[1])
-					&& funtion.getMovie().getName().equals(nombre)) {
-				return funtion;
-
+				}
 			}
 		}
-		return null;
+		throw new CinemaException("The given function to update does not exit");
 
 	}
+
+
 
 	@Override
 	public void saveCinema(Cinema c) throws CinemaPersistenceException {
-		if (cinemas.containsKey(c.getName())) {
-			throw new CinemaPersistenceException("The given cinema already exists: " + c.getName());
-		} else {
-			cinemas.put(c.getName(), c);
+		try {
+			if (cinemas.containsKey(c.getName())) {
+				throw new CinemaPersistenceException("The given cinema already exists: " + c.getName());
+			} else {
+				cinemas.put(c.getName(), c);
+			}
+		} catch (NullPointerException e) {
+			throw new CinemaPersistenceException("The given name does not exit");
+
 		}
 	}
 
-	@Override
-	public Cinema getCinema(String name) throws CinemaPersistenceException {
-		return cinemas.get(name);
+	public Cinema getCinema(String name) throws CinemaException {
+		Cinema c;
+		if ((c = cinemas.get(name)) == null) {
+			throw new CinemaException("The given function to update does not exit");
+		}
+		return c;
 	}
 
 	@Override

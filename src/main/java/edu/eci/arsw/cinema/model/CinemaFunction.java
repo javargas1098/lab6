@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  *
@@ -19,44 +17,37 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class CinemaFunction {
 
-	private AtomicReference<Movie> movie = new AtomicReference<Movie>();
-	private List<List<AtomicBoolean>> seats = Collections.synchronizedList(new ArrayList<>());
-	private AtomicReference<String> date = new AtomicReference<String>();
-	private AtomicReference<String> hour = new AtomicReference<String>();
-	private AtomicReference<String> gen = new AtomicReference<String>();
+	private Movie movie;
+	private List<List<Boolean>> seats = new ArrayList<>();
+	private String date;
+	private String hour;
 	private int numSeats;
 
 	public CinemaFunction() {
 	}
 
-	public CinemaFunction(Movie movie, String date) {
-		this.setMovie(movie);
-		;
-		this.setDate(date.split(" ")[0]);
-		this.setHour(date.split(" ")[1]);
-
-		numSeats = 7 * 12;
+	public CinemaFunction(Movie movie, String wholeDate) {
+		this.movie = movie;
+		this.date = wholeDate.split(" ")[0];
+		this.hour = wholeDate.split(" ")[1];
+		numSeats=7*12;
 		for (int i = 0; i < 7; i++) {
-			List<AtomicBoolean> row = new ArrayList<AtomicBoolean>(Arrays.asList(new AtomicBoolean[12]));
-			Collections.fill(row, new AtomicBoolean(true));
+			List<Boolean> row = new ArrayList<>(Arrays.asList(new Boolean[12]));
+			Collections.fill(row, Boolean.TRUE);
 			this.seats.add(row);
-
+			
 		}
 	}
 
 	public String getHour() {
-		return hour.get();
-	}
-
-	public void setHour(String hour) {
-		this.hour.set(hour);
+		return hour;
 	}
 
 	public void buyTicket(int row, int col) throws CinemaException {
-		if (seats.get(row).get(col).get()) {
-			seats.get(row).set(col, new AtomicBoolean(false));
-			numSeats -= 1;
-
+		if (seats.get(row).get(col).equals(true)) {
+			seats.get(row).set(col, Boolean.FALSE);
+			numSeats-=1;
+			
 		} else {
 			throw new CinemaException("Seat booked");
 		}
@@ -65,45 +56,40 @@ public class CinemaFunction {
 	public int getNumSeats() {
 		return numSeats;
 	}
+	
+	public synchronized void setFunction(CinemaFunction function) {
+		this.seats = function.getSeats();
+		this.date = function.getDate();
+		this.hour = function.getHour();
+		this.numSeats = function.getNumSeats();
+	}
 
 	public void setNumSeats(int numSeats) {
 		this.numSeats = numSeats;
 	}
 
 	public String getGen() {
-		return movie.get().getGenre();
+		return movie.getGenre();
 	}
 
-	public void setGen(String gen) {
-		this.gen.set(movie.get().getGenre());
-	}
-
-	public List<List<AtomicBoolean>> getSeats() {
+	public List<List<Boolean>> getSeats() {
 		return this.seats;
 	}
 
-	public void setFuntion(CinemaFunction funtion) {
-		this.seats = funtion.getSeats();
-		this.date.get();
-		this.hour.get();
-		this.numSeats = funtion.getNumSeats();
-
-	}
-
 	public Movie getMovie() {
-		return movie.get();
+		return movie;
 	}
 
 	public void setMovie(Movie movie) {
-		this.movie.set(movie);
+		this.movie = movie;
 	}
 
 	public String getDate() {
-		return date.get();
+		return date;
 	}
 
 	public void setDate(String date) {
-		this.date.set(date);
+		this.date = date;
 	}
 
 }
