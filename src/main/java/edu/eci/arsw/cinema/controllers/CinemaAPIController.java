@@ -73,7 +73,7 @@ public class CinemaAPIController {
 			throws ResourceNotFoundException {
 		try {
 			// obtener datos que se enviarán a través del API
-			return new ResponseEntity<>(cs.getFunctionsbyCinemaAndDate(name, date.replace("%20", " ")),
+			return new ResponseEntity<>(cs.getFunctionsbyCinemaAndDate(name, date),
 					HttpStatus.ACCEPTED);
 		} catch (CinemaPersistenceException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,9 +99,9 @@ public class CinemaAPIController {
 	}
 
 	@PostMapping("{name}")
-	public ResponseEntity<?> Postbyfuntion(@PathVariable String name,@RequestBody CinemaFunction funtion) {
+	public ResponseEntity<?> Postbyfuntion(@PathVariable String name, @RequestBody CinemaFunction funtion) {
 		try {
-			cs.addfuntion(name,funtion);
+			cs.addfuntion(name, funtion);
 			// registrar dato
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (CinemaPersistenceException ex) {
@@ -110,10 +110,12 @@ public class CinemaAPIController {
 		}
 
 	}
+
 	@PutMapping("{name}")
-	public ResponseEntity<?> PostbyName(@PathVariable String name,@RequestBody CinemaFunction funtion) throws CinemaException {
+	public ResponseEntity<?> PostbyName(@PathVariable String name, @RequestBody CinemaFunction funtion)
+			throws CinemaException {
 		try {
-			cs.UpdateFuntion(name,funtion);
+			cs.UpdateFuntion(name, funtion);
 			// registrar dato
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (CinemaException ex) {

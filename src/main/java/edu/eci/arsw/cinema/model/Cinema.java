@@ -5,30 +5,33 @@
  */
 package edu.eci.arsw.cinema.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  *
  * @author cristian
  */
 public class Cinema {
-	private String name;
-	private List<CinemaFunction> functions;
+	private AtomicReference<String> name;
+	private List<CinemaFunction> functions= Collections.synchronizedList(new ArrayList<CinemaFunction>());
 
 	public Cinema() {
 	}
 
 	public Cinema(String name, List<CinemaFunction> functions) {
-		this.name = name;
+		this.setName(name);
 		this.functions = functions;
 	}
 
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.setName(name);
 	}
 	public void Addfuntion(CinemaFunction funtion) {
 		functions.add(funtion);

@@ -5,44 +5,47 @@
  */
 package edu.eci.arsw.cinema.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  *
  * @author cristian
  */
 public class Movie {
-	private String name;
-	private String gen;
-	private int seats;
+	private AtomicReference<String> name;
+	private AtomicReference<String> gen;
+	private AtomicInteger seats;
 
 	public Movie() {
 	}
 
 	public Movie(String name, String gen) {
-		this.name = name;
-		this.gen = gen;
+		setName(name);
+		setGenre(gen);
 	}
 
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
 	}
 
 	public String getGenre() {
-		return gen;
+		return gen.get();
 	}
 
 	public void setGenre(String gen) {
-		this.gen = gen;
+		this.gen.set(gen);
 	}
 
 	public int getSeats() {
-		return seats;
+		return seats.get();
 	}
 
 	public void setSeats(int seats) {
-		this.seats = seats;
+		this.seats.set(seats);
 	}
 }
