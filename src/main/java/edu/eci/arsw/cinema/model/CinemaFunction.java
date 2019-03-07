@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -20,11 +19,11 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class CinemaFunction {
 
-	private AtomicReference<Movie> movie;
+	private AtomicReference<Movie> movie = new AtomicReference<Movie>();
 	private List<List<AtomicBoolean>> seats = Collections.synchronizedList(new ArrayList<>());
-	private AtomicReference<String> date;
-	private AtomicReference<String> hour;
-	private AtomicReference<String> gen;
+	private AtomicReference<String> date = new AtomicReference<String>();
+	private AtomicReference<String> hour = new AtomicReference<String>();
+	private AtomicReference<String> gen = new AtomicReference<String>();
 	private int numSeats;
 
 	public CinemaFunction() {

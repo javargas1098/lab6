@@ -5,48 +5,45 @@
  */
 package edu.eci.arsw.cinema.model;
 
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  *
  * @author cristian
  */
 public class Seat {
     
-    private AtomicInteger row;
-    private AtomicInteger col;
+    private int row;
+    private int col;
     
     public Seat(){
     }
     
-    public Seat(AtomicInteger row, AtomicInteger col){
+    public Seat(int row, int col){
         this.row=row;
         this.col=col;
     }
 
 
     public int getRow() {
-        return row.get();
+        return row;
     }
 
 
     public void setRow(int row) {
-        this.row.set(row);
+        this.row = row;
     }
 
 
     public int getCol() {
-        return col.get();
+        return col;
     }
 
  
     public void setCol(int col) {
-        this.col.set(col);;
+        this.col = col;
     }
     
     @Override
     public String toString(){
-        return this.row.get()+" "+this.col.get();
+        return this.row+" "+this.col;
     }
 }

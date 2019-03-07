@@ -15,8 +15,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author cristian
  */
 public class Cinema {
-	private AtomicReference<String> name;
-	private List<CinemaFunction> functions= Collections.synchronizedList(new ArrayList<CinemaFunction>());
+	private AtomicReference<String> name = new AtomicReference<String>();
+	private List<CinemaFunction> functions = Collections.synchronizedList(new ArrayList<CinemaFunction>());
 
 	public Cinema() {
 	}
@@ -31,21 +31,23 @@ public class Cinema {
 	}
 
 	public void setName(String name) {
-		this.setName(name);
+		this.name.set(name);
 	}
+
 	public void Addfuntion(CinemaFunction funtion) {
 		functions.add(funtion);
-		
+
 	}
+
 	public boolean Updatefuntion(CinemaFunction funtion) {
 		for (CinemaFunction cinemaFunction : functions) {
-			if(cinemaFunction.getMovie().getName().equals(funtion.getMovie().getName())) {
+			if (cinemaFunction.getMovie().getName().equals(funtion.getMovie().getName())) {
 				cinemaFunction.setFuntion(funtion);
 				return true;
 			}
 		}
 		return false;
-		
+
 	}
 
 	public List<CinemaFunction> getFunctions() {

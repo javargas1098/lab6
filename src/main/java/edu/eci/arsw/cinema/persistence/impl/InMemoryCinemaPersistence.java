@@ -134,11 +134,6 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 		// TODO Auto-generated method stub
 		Cinema cine = cinemas.get(name);
 		if (!cine.Updatefuntion(funtion)) {
-			System.out.println(" ");
-			System.out.println(" ");
-			System.out.println(" ");
-			System.out.println(" ");
-			System.out.println(" ");
 			throw new CinemaException("No se puede actualizar");
 
 		}

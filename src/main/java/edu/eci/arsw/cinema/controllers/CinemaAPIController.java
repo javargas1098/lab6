@@ -73,7 +73,7 @@ public class CinemaAPIController {
 			throws ResourceNotFoundException {
 		try {
 			// obtener datos que se enviarán a través del API
-			return new ResponseEntity<>(cs.getFunctionsbyCinemaAndDate(name, date),
+			return new ResponseEntity<>(cs.getFunctionsbyCinemaAndDate(name, date.replace("%20", " ")),
 					HttpStatus.ACCEPTED);
 		} catch (CinemaPersistenceException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
