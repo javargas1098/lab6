@@ -6,4 +6,4 @@ when probe the URL the program responds properly to the request made.
 The `Post` `Put` funtions requests are successfully received and the answer is the expected
 
  ## Part 	ll
- The race conditions that i found is when the server recive many requests about get pos put etc and they need to acces at the same time  to the `cinemafuntions` so the simple way to solve this is synchronized the arraylist `funtions` in cinema call and i use atomic values in the   to guarantee that all requests are made properly
+ The race conditions that i found is when the server recive many requests about get pos put etc and they need to acces at the same time  to the `cinemafuntions` so the simple way to solve this is synchronized the arraylist `funtions` in cinema class and i use atomic values in the   to guarantee that all requests are made properly
