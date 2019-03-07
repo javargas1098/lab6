@@ -1,4 +1,4 @@
-# lab 5
+# lab 6
 ## Part 	l
 In this part i had to modify  the class `Cinemafuntions` in order to separte the date and the hour for in the get method when call a cine usign the date didn't have inconsistencies but the required requests weren't changed.
 when probe the URL the program responds properly to the request made.
