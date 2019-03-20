@@ -61,7 +61,7 @@ public class CinemaAPIController {
 
 			Cinema c = cs.getCinemaByName(name);
 			ArrayList<CinemaFunction> data = (ArrayList<CinemaFunction>) c.getFunctions();
-			return new ResponseEntity<>(cs, HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(c, HttpStatus.ACCEPTED);
 
 		} catch (CinemaPersistenceException ex) {
 			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
